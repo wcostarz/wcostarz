@@ -1,0 +1,519 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Super Astral - Resultados Maio 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+            text-align: center;
+        }
+
+        .slide.active {
+            display: flex !important;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .slide-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .slide-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .slide-4 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .slide-5 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .slide-6 {
+            background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.5); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.8); }
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .metric-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 40px 0;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .metric-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .department-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .department-card:hover {
+            transform: scale(1.05);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .dept-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .dept-value {
+            font-size: 1.5rem;
+            color: #4facfe;
+            font-weight: bold;
+        }
+
+        .growth-indicator {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .positive { background: #43e97b; color: #000; }
+        .negative { background: #f5576c; color: #fff; }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 15px 25px;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid #fff;
+            border-radius: 25px;
+            color: #333;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            background: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .slide-indicator {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.5);
+            padding: 15px 10px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .indicator-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .indicator-dot.active {
+            background: #fff;
+            transform: scale(1.4);
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .indicator-dot:hover {
+            background: rgba(255,255,255,0.8);
+            transform: scale(1.2);
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .metric-number { font-size: 2.5rem; }
+            .navigation { bottom: 20px; flex-wrap: wrap; gap: 10px; }
+            .slide-indicator { right: 20px; }
+            .metric-container { grid-template-columns: 1fr; }
+            .department-grid { grid-template-columns: 1fr; }
+            .nav-btn { padding: 12px 20px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Título -->
+    <div class="slide slide-1 active">
+        <div class="particles" id="particles1"></div>
+        <h1>SUPER ASTRAL</h1>
+        <p class="subtitle">Resultados Excepcionais • Maio 2025</p>
+        <div class="metric-container">
+            <div class="metric-card">
+                <div class="metric-number">🚀</div>
+                <div class="metric-label">Performance Extraordinária</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">R$ 5,4M</div>
+                <div class="metric-label">Faturamento Total</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">13,7%</div>
+                <div class="metric-label">Crescimento vs 2024</div>
+            </div>
+        </div>
+        <p style="font-size: 1.2rem; opacity: 0.8; margin-top: 30px;">
+            👆 Use as setas abaixo para navegar ou as teclas ← →
+        </p>
+    </div>
+
+    <!-- Slide 2: Visão Geral -->
+    <div class="slide slide-2">
+        <div class="particles" id="particles2"></div>
+        <h2>CRESCIMENTO <span class="highlight">ESPETACULAR</span></h2>
+        <div class="metric-container">
+            <div class="metric-card">
+                <div class="metric-number">13,7%</div>
+                <div class="metric-label">Crescimento em Vendas</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">+3%</div>
+                <div class="metric-label">Margem de Lucro</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">R$ 650K</div>
+                <div class="metric-label">Receita Adicional</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Números Principais -->
+    <div class="slide slide-3">
+        <div class="particles" id="particles3"></div>
+        <h2>FATURAMENTO <span class="highlight">RECORDE</span></h2>
+        <div class="metric-container">
+            <div class="metric-card">
+                <div class="metric-number">R$ 4,7M</div>
+                <div class="metric-label">Maio 2024</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">R$ 5,4M</div>
+                <div class="metric-label">Maio 2025</div>
+            </div>
+        </div>
+        <div class="metric-card" style="max-width: 600px; margin: 0 auto;">
+            <div class="metric-number">28% → 31%</div>
+            <div class="metric-label">Evolução da Margem de Lucro</div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Top Performers -->
+    <div class="slide slide-4">
+        <div class="particles" id="particles4"></div>
+        <h2>TOP <span class="highlight">PERFORMERS</span></h2>
+        <div class="department-grid">
+            <div class="department-card">
+                <div class="dept-name">🥩 AÇOUGUE</div>
+                <div class="dept-value">R$ 1,76M</div>
+                <span class="growth-indicator positive">+24%</span>
+            </div>
+            <div class="department-card">
+                <div class="dept-name">🍞 PADARIA</div>
+                <div class="dept-value">R$ 197K</div>
+                <span class="growth-indicator positive">+31%</span>
+            </div>
+            <div class="department-card">
+                <div class="dept-name">🥣 MATINAL</div>
+                <div class="dept-value">R$ 238K</div>
+                <span class="growth-indicator positive">+76%</span>
+            </div>
+            <div class="department-card">
+                <div class="dept-name">🥘 ROTISSERIA</div>
+                <div class="dept-value">R$ 79K</div>
+                <span class="growth-indicator positive">+42%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Conclusão -->
+    <div class="slide slide-5">
+        <div class="particles" id="particles5"></div>
+        <h2>IMPACTO DA <span class="highlight">FILIAL 003</span></h2>
+        <div class="metric-container">
+            <div class="metric-card">
+                <div class="metric-number">3</div>
+                <div class="metric-label">Unidades Ativas</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">100%</div>
+                <div class="metric-label">Expansão Concluída</div>
+            </div>
+        </div>
+        <div class="metric-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="metric-number">🎯</div>
+            <div class="metric-label">Nova filial contribuiu significativamente para o crescimento de 13,7% e melhoria da margem operacional</div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Agradecimento -->
+    <div class="slide slide-6">
+        <div class="particles" id="particles6"></div>
+        <h2>OBRIGADO!</h2>
+        <p class="subtitle" style="font-size: 1.8rem; max-width: 700px; margin: 20px auto;">
+            Agradecemos a confiança e o empenho de toda a equipe para alcançarmos esses resultados incríveis.  
+            Estamos prontos para continuar crescendo juntos!
+        </p>
+        <p style="font-size: 1.2rem; opacity: 0.8; margin-top: 30px;">
+            Use as setas ou os botões abaixo para navegar.
+        </p>
+    </div>
+
+    <!-- Navegação -->
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Anterior</button>
+        <button class="nav-btn" onclick="nextSlide()">Próximo →</button>
+        <button class="nav-btn" onclick="toggleFullScreen()">Tela Cheia</button>
+    </div>
+
+    <!-- Indicadores -->
+    <div class="slide-indicator">
+        <div class="indicator-dot active" onclick="currentSlide(1)"></div>
+        <div class="indicator-dot" onclick="currentSlide(2)"></div>
+        <div class="indicator-dot" onclick="currentSlide(3)"></div>
+        <div class="indicator-dot" onclick="currentSlide(4)"></div>
+        <div class="indicator-dot" onclick="currentSlide(5)"></div>
+        <div class="indicator-dot" onclick="currentSlide(6)"></div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 1;
+        const totalSlides = 6;
+
+        function createParticles(containerId, count = 20) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                const size = (Math.random() * 8 + 4);
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.indicator-dot');
+
+            if (n > totalSlides) currentSlideIndex = 1;
+            if (n < 1) currentSlideIndex = totalSlides;
+
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+                slide.style.display = 'none';
+            });
+
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            slides[currentSlideIndex - 1].style.display = 'flex';
+            setTimeout(() => slides[currentSlideIndex - 1].classList.add('active'), 50);
+
+            dots[currentSlideIndex - 1].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlideIndex++;
+            showSlide(currentSlideIndex);
+        }
+
+        function previousSlide() {
+            currentSlideIndex--;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(n) {
+            currentSlideIndex = n;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        window.addEventListener('load', () => {
+            for (let i = 1; i <= totalSlides; i++) {
+                createParticles(`particles${i}`);
+            }
+            showSlide(currentSlideIndex);
+        });
+    </script>
+</body>
+</html>
+```
+
+
